@@ -1,0 +1,6 @@
+name: php-official-7.4-fpm
+group: shared.infra
+image: php:7.4-fpm
+description: official from https://hub.docker.com
+type: docker
+pattern_name: basic_unix

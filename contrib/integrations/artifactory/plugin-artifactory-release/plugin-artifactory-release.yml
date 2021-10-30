@@ -1,0 +1,5 @@
+name: artifactory-release-plugin
+type: integration-release
+integration: Artifactory
+author: "OVH SAS"
+description: "OVH Artifactory Release Plugin"
