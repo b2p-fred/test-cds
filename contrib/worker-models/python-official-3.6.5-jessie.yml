@@ -1,6 +1,0 @@
-name: python-official-3.6.5-jessie
-group: shared.infra
-image: python:3.6.5-jessie
-description: image from https://hub.docker.com/_/python/
-type: docker
-pattern_name: basic_unix

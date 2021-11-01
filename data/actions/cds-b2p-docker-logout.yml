@@ -1,0 +1,13 @@
+version: v1.0
+name: Docker logout
+group: shared.infra
+description: Sign out from a Docker registry
+parameters:
+  registry:
+    type: string
+steps:
+  - script:
+      - '#!/bin/bash'
+      - set -e
+      - echo "docker logout {{.registry}}"
+      - docker logout {{.registry}}

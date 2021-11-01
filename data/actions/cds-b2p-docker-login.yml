@@ -1,0 +1,17 @@
+version: v1.0
+name: Docker login
+group: shared.infra
+description: Sign in to a Docker registry
+parameters:
+  registry:
+    type: string
+  username:
+    type: string
+  password:
+    type: string
+steps:
+  - script:
+      - '#!/bin/bash'
+      - set -e
+      - echo "docker login -u {{.username}} -p {{.password}} {{.registry}}"
+      - docker login -u {{.username}} -p {{.password}} {{.registry}}

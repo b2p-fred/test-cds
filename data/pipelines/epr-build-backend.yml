@@ -1,0 +1,34 @@
+version: v1.0
+name: build-backend
+description: Build the application backend installable package
+jobs:
+  - job: Checkout project repository
+    steps:
+      - checkout: '{{.cds.workspace}}'
+      - script:
+          - '# Configure application according to the environment'
+          - if [ "${APP_ENV}" = "prod" ]; then
+          - '  echo "Installing project dependencies for production..."'
+          - '  composer install --no-dev --no-interaction --no-progress --no-scripts --no-plugins --classmap-authoritative --optimize-autoloader'
+          - else
+          - '  echo "Installing project dependencies for tests..."'
+          - '  echo "Environment: ${APP_ENV}"'
+          - '  composer install --no-interaction --no-progress'
+          - fi
+          - ""
+          - '# Preparing an installable tar.gz package'
+          - echo "Creating 'staging/epr-backend-api-{{.cds.proj.PROJECT_API_VERSION}}.tar.gz' ${APP_ENV} mode installable package..."
+          - FILE="staging/epr-backend-api-{{.cds.proj.PROJECT_API_VERSION}}.tar.gz"
+          - if [ -f $FILE ]; then
+          - '  echo "File $FILE exists, removing..."'
+          - '  rm $FILE'
+          - fi
+          - tar --transform "s,^,epr-backend-api-{{.cds.proj.PROJECT_API_VERSION}}/," -czf $FILE public src vendor .env.dist CHANGELOG.md
+          - ""
+      - artifactUpload:
+          path: staging/epr-backend-api-{{.cds.proj.PROJECT_API_VERSION}}.tar.gz
+          tag: '{{.cds.version}}'
+    requirements:
+      - binary: git
+      - model: eprotocole/epr-PHP
+      - binary: ssh

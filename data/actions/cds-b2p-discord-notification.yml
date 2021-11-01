@@ -1,0 +1,20 @@
+version: v1.0
+name: Discord notification
+group: shared.infra
+description: Send a notification to a Discord Webhook
+parameters:
+  avatar:
+    type: string
+    default: "{{.cds.app.DISCORD_AVATAR}}"
+  content:
+    type: string
+    default: "123"
+  url:
+    type: string
+    default: "{{.cds.app.DISCORD_URL}}"
+  username:
+    type: string
+    default: "123"
+steps:
+  - script:
+      - 'curl -H "Content-Type: application/json" -X POST -d ''{"content":"''"{{.content}}"''", "username":"''"{{.username}}"''", "avatar_url":"''"{{.avatar}}"''" }'' {{.url}}'

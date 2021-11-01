@@ -1,0 +1,8 @@
+slug: demo-workflow-hello-world
+name: Demo workflow hello world
+group: shared.infra
+description: A template that generates a Hello World Workflow. It's the same as demo-workflow-skeleton, but does not contain dependency with a Git Repository Manager.
+workflow: workflow.yml
+pipelines: []
+applications: []
+environments: []

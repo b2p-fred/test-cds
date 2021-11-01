@@ -1,0 +1,17 @@
+name: epr-PHP
+group: shared.infra
+image: docker.b2pweb.com:5000/eprotocole/epr-backend_php:0
+registry: https://docker.b2pweb.com:5000
+username: integration
+password: integration
+description: eProtocole - PHP FPM server
+type: docker
+envs:
+  CDS_GRAYLOG_EXTRA_KEY: '{{.GraylogExtraKey}}'
+  CDS_GRAYLOG_EXTRA_VALUE: '{{.GraylogExtraValue}}'
+  CDS_GRAYLOG_HOST: '{{.GraylogHost}}'
+  CDS_GRAYLOG_PORT: '{{.GraylogPort}}'
+  CDS_SINGLE_USE: "1"
+  CDS_TTL: '{{.TTL}}'
+shell: sh -c
+cmd: curl {{.API}}/download/worker/linux/$(uname -m) -o worker --retry 10 --retry-max-time 120 && chmod +x worker && exec ./worker
